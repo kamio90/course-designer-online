@@ -1,13 +1,83 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8"/>
+    <link href="/vite.svg" rel="icon" type="image/svg+xml"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <link href="src/style.css" rel="stylesheet"/>
     <title>Course Designer Online</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
-  </body>
+</head>
+<body>
+<div id="app">
+    <div id="layout">
+        <div id="toolbar">
+            <h3>Nowa przeszkoda</h3>
+            <select id="obstacle-type">
+                <option value="stacjonata">Stacjonata</option>
+                <option value="okser">Okser</option>
+                <option value="triple">Triple Bar</option>
+                <option value="row">Rów z wodą</option>
+                <option value="mur">Mur</option>
+                <option value="szereg">Szereg (kombinacja)</option>
+            </select>
+            <input id="obstacle-label" placeholder="np. 1, 2, 1A, 3B..." type="text"/>
+            <button onclick="addObstacle()">Dodaj przeszkodę</button>
+
+            <h3>Rozmiar parkuru</h3>
+            <input id="input-width" placeholder="Szerokość (m)" type="number"/>
+            <input id="input-height" placeholder="Wysokość (m)" type="number"/>
+            <button onclick="applyCanvasSize()">Zastosuj</button>
+
+            <button onclick="clearCanvas()">Wyczyść</button>
+            <button onclick="exportToJSON()">Eksportuj JSON</button>
+            <button onclick="importFromJSON()">Importuj JSON</button>
+            <button onclick="exportToPNG()">Eksportuj PNG</button>
+
+            <div id="info">
+                <span>Rozmiar: <span id="canvas-size-label"></span></span>
+                <span>Tryb: <span id="mode-indicator">Przesuwanie (R)</span></span>
+            </div>
+        </div>
+
+        <div id="content">
+            <div id="canvas-container">
+                <canvas height="600" id="parkour-canvas" width="800"></canvas>
+            </div>
+
+            <div id="stats-panel">
+                <h4>Parkur</h4>
+                <div id="stats">
+                    <p>Speed: <span id="stat-speed">350</span> m/min</p>
+                    <p>Distance: <span id="stat-distance">0</span> m</p>
+                    <p>Time allowed: <span id="stat-allowed">0</span> s</p>
+                    <p>Time limit: <span id="stat-limit">0</span> s</p>
+                    <p>Obstacles: <span id="stat-obstacles">0</span></p>
+                    <p>Efforts: <span id="stat-efforts">0</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ✅ MODAL SZEREGU -->
+    <div class="modal" id="szereg-modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeSzeregModal()">&times;</span>
+            <h2>Dodaj szereg (kombinację)</h2>
+            <label>Liczba członów (2 lub 3):</label>
+            <input id="szereg-count" max="3" min="2" type="number" value="2"/>
+            <div id="szereg-types"></div>
+            <div id="szereg-foulees"></div>
+            <button onclick="confirmSzereg()">Dodaj szereg</button>
+        </div>
+    </div>
+</div>
+<!-- Skrypty -->
+<script src="src/obstacles.js"></script>
+<script src="src/stats.js"></script>
+<script src="src/export.js"></script>
+<script src="src/main.js"></script>
+</body>
 </html>
+
+
+

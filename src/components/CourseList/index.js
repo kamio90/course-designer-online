@@ -110,7 +110,11 @@ export function renderCourseList({
   }
   renderList();
 
-  container.querySelector('#cl-new').onclick = () => { if (onNew) onNew(); };
+  const newBtn = container.querySelector('#cl-new');
+  newBtn.addEventListener('click', e => {
+    e.preventDefault();
+    if (onNew) onNew();
+  });
   container.querySelector('#cl-search').addEventListener('input', renderList);
   container.querySelector('#cl-sort').addEventListener('change', renderList);
   container.querySelector('#tab-my').addEventListener('click',()=>{current='my';list=projects.slice(); container.querySelector('#tab-my').classList.add('active'); container.querySelector('#tab-shared').classList.remove('active'); renderList();});

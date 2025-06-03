@@ -14,9 +14,11 @@ export function renderUserBar({ container, onLogout } = {}) {
   injectStyles();
   const state = getState();
   const userName = state.user ? state.user.username || state.user.name || '' : '';
+  const avatar = userName ? userName[0].toUpperCase() : '?';
   container.innerHTML = `
     <div class="user-bar">
-      <span class="ub-user">👤 ${userName}</span>
+      <span class="ub-avatar" aria-label="${t('userBar.avatar')}">${avatar}</span>
+      <span class="ub-user">${userName}</span>
       <select class="ub-lang" aria-label="${t('userBar.language')}">
         <option value="en"${state.locale === 'en' ? ' selected' : ''}>${t('userBar.english')}</option>
         <option value="pl"${state.locale === 'pl' ? ' selected' : ''}>${t('userBar.polish')}</option>

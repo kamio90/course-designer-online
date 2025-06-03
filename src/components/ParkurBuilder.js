@@ -1,19 +1,19 @@
 import {CanvasGrid} from './CanvasGrid.js';
 import {ZoneToolbar} from './ZoneToolbar.js';
-import {goBack} from '../router.js';
+import {attachBackButtonHandler, BackButton} from './BackButton.js';
 
 export function renderParkurBuilder(config) {
     const root = document.getElementById('main-content');
     root.innerHTML = `
       <div class="builder-layout">
         <aside id="zone-toolbar"></aside>
-        <div class="canvas-wrap">
-          <button type="button" id="back-btn" style="margin-bottom:10px;position:absolute;z-index:10;">&larr; Wróć</button>
+        <div class="canvas-wrap" style="position:relative;">
+          ${BackButton()}
           <canvas id="parkur-canvas"></canvas>
         </div>
       </div>
     `;
-    document.getElementById('back-btn').onclick = () => goBack();
+    attachBackButtonHandler(root);
     CanvasGrid.init(config);
     ZoneToolbar.init();
 }

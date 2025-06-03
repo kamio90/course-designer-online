@@ -1,10 +1,11 @@
-import {goBack} from '../router.js';
+import {attachBackButtonHandler, BackButton} from './BackButton.js';
+import {renderParkurCanvasDraw} from './ParkurCanvasDraw.js';
 
 export function renderNewProjectForm({onSubmit}) {
     const root = document.getElementById('main-content');
     root.innerHTML = `
       <form id="new-parkur-form" class="new-parkur-form">
-        <button type="button" id="back-btn" style="margin-bottom:8px;width:max-content;">&larr; Wróć</button>
+        ${BackButton()}
         <h2>Nowy parkur</h2>
         <label>Miejsce <input name="place" required></label>
         <label>Tryb pola
@@ -21,7 +22,8 @@ export function renderNewProjectForm({onSubmit}) {
         <button type="submit">Start</button>
       </form>
     `;
-    root.querySelector('#back-btn').onclick = () => goBack();
+
+    attachBackButtonHandler(root);
 
     const form = root.querySelector('#new-parkur-form');
     const modeSelect = form.querySelector('select[name="mode"]');
@@ -33,14 +35,21 @@ export function renderNewProjectForm({onSubmit}) {
     form.addEventListener('submit', e => {
         e.preventDefault();
         const data = Object.fromEntries(new FormData(form));
-        if (data.mode !== 'rect') {
-            delete data.width;
-            delete data.height;
+        if (data.mode === "draw") {
+            renderParkurCanvasDraw({
+                place: data.place,
+                pxPerMeter: Number(data.pxPerMeter)
+            });
         } else {
-            data.width = Number(data.width);
-            data.height = Number(data.height);
+            if (data.mode !== 'rect') {
+                delete data.width;
+                delete data.height;
+            } else {
+                data.width = Number(data.width);
+                data.height = Number(data.height);
+            }
+            data.pxPerMeter = Number(data.pxPerMeter);
+            onSubmit(data);
         }
-        data.pxPerMeter = Number(data.pxPerMeter);
-        onSubmit(data);
     });
 }

@@ -1,5 +1,6 @@
 import {goTo} from '../router.js';
 import {renderNewProjectForm} from './NewProjectForm.js';
+import {renderParkurBuilder} from './ParkurBuilder.js';
 
 export function renderWelcomeBox() {
     const root = document.getElementById('main-content');
@@ -13,14 +14,9 @@ export function renderWelcomeBox() {
             </button>
         </div>
     `;
-    // Teraz zawsze działa
     document.getElementById('create-project-btn').onclick = () => {
         goTo(renderNewProjectForm, {
-            onSubmit: (data) => {
-                // Ten callback routerowy — przechodzimy do buildera
-                const {renderParkurBuilder} = require('./ParkurBuilder.js');
-                goTo(renderParkurBuilder, data);
-            }
+            onSubmit: (data) => goTo(renderParkurBuilder, data)
         });
     };
 }

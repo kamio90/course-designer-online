@@ -1,3 +1,8 @@
+let injected;
+export function injectGlobalStyles(){
+  if(injected) return;
+  const s=document.createElement('style');
+  s.textContent=`
 :root {
     --primary: #1565c0;
     --primary-dark: #003c8f;
@@ -737,4 +742,8 @@ html, body {
         opacity: 1;
         transform: translateY(0);
     }
+}
+  `;
+  document.head.appendChild(s);
+  injected=true;
 }

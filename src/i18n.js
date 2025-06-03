@@ -84,6 +84,8 @@ export const translations = {
     'courseList.title': 'My courses',
     'courseList.newCourse': 'Create new course',
     'courseList.empty': 'No courses yet',
+    'userBar.logout': 'Logout',
+    'userBar.language': 'Language',
     'topbar.help': 'Help',
     'topbar.center': 'Center view',
     'topbar.zoomIn': 'Zoom in',
@@ -91,7 +93,7 @@ export const translations = {
     'topbar.clear': 'Clear all',
     'topbar.undo': 'Undo',
     'topbar.redo': 'Redo',
-    'obstacleToolbox.title': 'Obstacles'
+    'obstacleToolbox.title': 'Obstacles',
   },
   pl: {
     'welcome.title': 'Course Designer Online',
@@ -178,6 +180,8 @@ export const translations = {
     'courseList.title': 'Moje parkury',
     'courseList.newCourse': 'Nowy parkur',
     'courseList.empty': 'Brak zapisanych parkurów',
+    'userBar.logout': 'Wyloguj',
+    'userBar.language': 'Język',
     'topbar.help': 'Pomoc',
     'topbar.center': 'Wyśrodkuj',
     'topbar.zoomIn': 'Powiększ',

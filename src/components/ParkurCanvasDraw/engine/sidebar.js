@@ -1,3 +1,5 @@
+import {t} from '../../i18n.js';
+
 export function renderSidebar({mode, onAcceptArea, onBackToEdit, onAddObject}) {
     let sidebar = document.getElementById('left-sidebar');
     if (sidebar) sidebar.remove();
@@ -9,19 +11,19 @@ export function renderSidebar({mode, onAcceptArea, onBackToEdit, onAddObject}) {
     if (mode === 'edit-area') {
         sidebar.innerHTML = `
           <button id="accept-area-btn" class="mat-btn mat-primary" style="margin-bottom:24px;">
-            ✅ Akceptuj obszar roboczy
+            ${t('sidebar.acceptArea')}
           </button>
-          <div class="sidebar-label">Narysuj obszar (zamknij kształt), potem kliknij Akceptuj</div>
+          <div class="sidebar-label">${t('sidebar.instructions')}</div>
         `;
     } else if (mode === 'static-objects') {
         sidebar.innerHTML = `
           <button id="back-to-edit-btn" class="mat-btn mat-outline" style="margin-bottom:28px;">
-            ⬅️ Wróć do modyfikacji
+            ${t('sidebar.backEdit')}
           </button>
-          <div class="sidebar-label" style="margin-bottom:22px;">Dodaj element stały:</div>
-          <button class="mat-btn mat-secondary" id="add-obj-oczko">🟦 Oczko wodne</button>
-          <button class="mat-btn mat-secondary" id="add-obj-krzak">🌳 Krzak</button>
-          <button class="mat-btn mat-secondary" id="add-obj-trawa">🌿 Obszar trawiasty</button>
+          <div class="sidebar-label" style="margin-bottom:22px;">${t('sidebar.addStatic')}</div>
+          <button class="mat-btn mat-secondary" id="add-obj-oczko">${t('sidebar.pond')}</button>
+          <button class="mat-btn mat-secondary" id="add-obj-krzak">${t('sidebar.bush')}</button>
+          <button class="mat-btn mat-secondary" id="add-obj-trawa">${t('sidebar.grass')}</button>
         `;
     }
 

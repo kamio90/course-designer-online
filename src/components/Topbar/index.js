@@ -15,7 +15,9 @@ export function renderTopbar({
   onZoomOut,
   onClear,
   onUndo,
-  onRedo
+  onRedo,
+  onScaleChange,
+  scale = 20
 } = {}) {
   if (!container) throw new Error('container required');
   injectStyles();
@@ -28,9 +30,17 @@ export function renderTopbar({
       <button id="tb-clear" aria-label="${t('topbar.clear')}">&#128465;</button>
       <button id="tb-undo" aria-label="${t('topbar.undo')}">&#8630;</button>
       <button id="tb-redo" aria-label="${t('topbar.redo')}">&#8631;</button>
+      <label class="tb-scale">${t('topbar.scale')}
+        <input id="tb-scale" type="range" min="5" max="80" value="${scale}">
+        <span id="tb-scale-val">${scale}</span> px/m
+      </label>
     </div>
   `;
   const q = id => container.querySelector(id);
+  q('#tb-scale').addEventListener('input', e => {
+    q('#tb-scale-val').textContent = e.target.value;
+    if(onScaleChange) onScaleChange(Number(e.target.value));
+  });
   if (onHelp) q('#tb-help').onclick = onHelp;
   if (onCenter) q('#tb-center').onclick = onCenter;
   if (onZoomIn) q('#tb-zoom-in').onclick = onZoomIn;

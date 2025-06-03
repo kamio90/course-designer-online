@@ -6,12 +6,14 @@ import { renderTopbar } from '../Topbar/index.js';
 import { renderSidebar } from '../Sidebar/index.js';
 import { renderMainCanvas } from '../MainCanvas/index.js';
 import { renderStatsPanel, updateStats } from '../StatsPanel/index.js';
+import { renderHelpBox } from '../HelpBox/index.js';
 import { injectStyles } from './style.js';
 
 export function renderCourseAreaEditor({
   container = document.getElementById('main-content'),
   width = 800,
-  height = 600
+  height = 600,
+  pxPerMeter = 20
 } = {}) {
   if(!container) throw new Error('container required');
   injectStyles();
@@ -29,6 +31,7 @@ export function renderCourseAreaEditor({
     container: container.querySelector('.cae-canvas'),
     width,
     height,
+    pxPerMeter,
     onChange: stats => updateStats(container.querySelector('.cae-stats'), stats)
   });
 
@@ -41,6 +44,9 @@ export function renderCourseAreaEditor({
 
   renderTopbar({
     container: container.querySelector('.cae-top'),
+    scale: pxPerMeter,
+    onScaleChange: val => { api.setPxPerMeter(val); },
+    onHelp: () => renderHelpBox(),
     onZoomIn: ()=>api.zoomIn(),
     onZoomOut: ()=>api.zoomOut(),
     onCenter: ()=>api.center(),

@@ -5,11 +5,12 @@
  *   container - DOM element to render into
  *   width, height - canvas dimensions
  *   onChange(stats) - callback when stats update
+ *   pxPerMeter - scale of pixels per meter for stats
  */
 import { injectStyles } from './style.js';
 import { polygonArea, polygonPerimeter } from '../../utils/index.js';
 
-export function renderMainCanvas({container,width=800,height=600,onChange}={}){
+export function renderMainCanvas({container,width=800,height=600,onChange,pxPerMeter=20}={}){
   if(!container) throw new Error('container required');
   injectStyles();
   container.innerHTML=`<canvas class="main-canvas" tabindex="0" width="${width}" height="${height}"></canvas>`;
@@ -25,7 +26,8 @@ export function renderMainCanvas({container,width=800,height=600,onChange}={}){
     draggingPoint:null,
     draggingObject:null,
     history:{undo:[],redo:[]},
-    scale:1
+    scale:1,
+    pxPerMeter
   };
 
   function pushSnapshot(){
@@ -43,8 +45,8 @@ export function renderMainCanvas({container,width=800,height=600,onChange}={}){
   const api={
     getStats(){
       return {
-        area: +polygonArea(state.points).toFixed(2),
-        perimeter: +polygonPerimeter(state.points).toFixed(2),
+        area: +(polygonArea(state.points)/(state.pxPerMeter*state.pxPerMeter)).toFixed(2),
+        perimeter: +(polygonPerimeter(state.points)/state.pxPerMeter).toFixed(2),
         vertices: state.points.length,
         edges: state.points.length,
         occupied: state.objects.length
@@ -53,6 +55,7 @@ export function renderMainCanvas({container,width=800,height=600,onChange}={}){
     acceptArea(){ if(state.closed){ state.mode='static'; draw(); notify(); } },
     editArea(){ state.mode='area'; state.closed=false; draw(); notify(); },
     setObjectType(type){ state.currentType=type; },
+    setPxPerMeter(val){ state.pxPerMeter=val; notify(); },
     clear(){ state.points=[]; state.objects=[]; state.mode='area'; state.closed=false; pushSnapshot(); draw(); notify(); },
     undo(){ if(!state.history.undo.length) return; state.history.redo.unshift(JSON.stringify({points:state.points,objects:state.objects})); applySnapshot(state.history.undo.pop()); },
     redo(){ if(!state.history.redo.length) return; state.history.undo.push(JSON.stringify({points:state.points,objects:state.objects})); applySnapshot(state.history.redo.shift()); },
@@ -60,7 +63,8 @@ export function renderMainCanvas({container,width=800,height=600,onChange}={}){
     zoomOut(){ state.scale=Math.max(state.scale/1.2,0.5); draw(); },
     center(){ draw(); },
     getMode(){ return state.mode; },
-    isClosed(){ return state.closed; }
+    isClosed(){ return state.closed; },
+    getPxPerMeter(){ return state.pxPerMeter; }
   };
 
   const listeners=[];

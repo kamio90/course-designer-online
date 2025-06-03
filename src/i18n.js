@@ -83,7 +83,15 @@ export const translations = {
 
     'courseList.title': 'My courses',
     'courseList.newCourse': 'Create new course',
-    'courseList.empty': 'No courses yet'
+    'courseList.empty': 'No courses yet',
+    'topbar.help': 'Help',
+    'topbar.center': 'Center view',
+    'topbar.zoomIn': 'Zoom in',
+    'topbar.zoomOut': 'Zoom out',
+    'topbar.clear': 'Clear all',
+    'topbar.undo': 'Undo',
+    'topbar.redo': 'Redo',
+    'obstacleToolbox.title': 'Obstacles'
   },
   pl: {
     'welcome.title': 'Course Designer Online',
@@ -169,7 +177,15 @@ export const translations = {
 
     'courseList.title': 'Moje parkury',
     'courseList.newCourse': 'Nowy parkur',
-    'courseList.empty': 'Brak zapisanych parkurów'
+    'courseList.empty': 'Brak zapisanych parkurów',
+    'topbar.help': 'Pomoc',
+    'topbar.center': 'Wyśrodkuj',
+    'topbar.zoomIn': 'Powiększ',
+    'topbar.zoomOut': 'Pomniejsz',
+    'topbar.clear': 'Wyczyść',
+    'topbar.undo': 'Cofnij',
+    'topbar.redo': 'Ponów',
+    'obstacleToolbox.title': 'Przeszkody'
   }
 };
 

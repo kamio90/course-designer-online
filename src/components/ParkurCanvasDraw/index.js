@@ -1,5 +1,5 @@
-import {createParkurState, edgeLength, pxToMeters} from './engine/state.js';
-import {renderParkurDOM} from './engine/dom.js';
+import {saveProjectToStorage} from '../../storage.js';
+import {t} from '../../i18n.js';
 import {drawAll, updateStatsDOM} from './engine/draw.js';
 import {setupToolbarEvents} from './engine/toolbar-events.js';
 import {setupCanvasEvents} from './engine/canvas-events.js';

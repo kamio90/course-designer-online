@@ -1,4 +1,4 @@
-import {renderHelpBox} from '../../HelpBox/index.js';
+import { renderHelpBox } from '../../HelpBox/index.js';
 
 export function setupToolbarEvents(state, dom, updateCanvas, {onSave, onExport, onClear}) {
     dom.scaleSelect.value = state.pxPerMeter;

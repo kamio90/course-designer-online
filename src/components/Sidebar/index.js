@@ -1,7 +1,8 @@
 /**
  * Sidebar component for area/obstacle tools.
  * Props: container - HTMLElement to render into
- *   onAccept, onBack, onAddStatic - callbacks
+ *   onAccept, onBack, onAddStatic
+ * Returns API with setMode() and setAcceptEnabled()
  */
 import { t } from '../../i18n.js';
 import { injectStyles } from './style.js';
@@ -21,11 +22,20 @@ export function renderSidebar({ container, onAccept, onBack, onAddStatic } = {})
       <button id="sb-back" class="mat-btn">${t('sidebar.backEdit')}</button>
     </aside>`;
   const q=id=>container.querySelector(id);
-  if(onAccept) q('#sb-accept').onclick = () => { q('#sb-static').classList.remove('hidden'); onAccept(); };
-  if(onBack) q('#sb-back').onclick = onBack;
+  const acceptBtn=q('#sb-accept');
+  const staticBox=q('#sb-static');
+  if(onAccept) acceptBtn.onclick=()=>onAccept();
+  if(onBack) q('#sb-back').onclick=onBack;
   if(onAddStatic){
-    q('#sb-static').querySelectorAll('button[data-type]').forEach(btn=>{
-      btn.onclick = ()=> onAddStatic(btn.dataset.type);
+    staticBox.querySelectorAll('button[data-type]').forEach(btn=>{
+      btn.onclick=()=>onAddStatic(btn.dataset.type);
     });
   }
+  return {
+    setMode(mode){
+      if(mode==='static') staticBox.classList.remove('hidden');
+      else staticBox.classList.add('hidden');
+    },
+    setAcceptEnabled(en){ acceptBtn.disabled=!en; }
+  };
 }

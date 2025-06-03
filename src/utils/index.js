@@ -3,3 +3,4 @@ export function formatDate(dt) {
     const [y, m, d] = dt.split('-');
     return `${d}.${m}.${y}`;
 }
+export { polygonArea, polygonPerimeter } from './geometry.js';

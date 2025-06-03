@@ -1,4 +1,4 @@
-import {t} from '../../i18n.js';
+import {t} from '../../../i18n.js';
 
 export function renderParkurDOM(state) {
     const root = document.getElementById('main-content');

@@ -1,10 +1,12 @@
-import {createParkurState, edgeLength, pxToMeters} from './parkut-canvas-draw/state.js';
-import {renderParkurDOM} from './parkut-canvas-draw/dom.js';
-import {drawAll, updateStatsDOM} from './parkut-canvas-draw/draw.js';
-import {setupToolbarEvents} from './parkut-canvas-draw/toolbar-events.js';
-import {setupCanvasEvents} from './parkut-canvas-draw/canvas-events.js';
-import {renderHelpBox} from './HelpBox.js';
-import {saveProjectToStorage} from '../storage.js';
+import {createParkurState, edgeLength, pxToMeters} from './engine/state.js';
+import {renderParkurDOM} from './engine/dom.js';
+import {drawAll, updateStatsDOM} from './engine/draw.js';
+import {setupToolbarEvents} from './engine/toolbar-events.js';
+import {setupCanvasEvents} from './engine/canvas-events.js';
+import {renderHelpBox} from '../HelpBox/index.js';
+import {t} from '../../i18n.js';
+import {injectStyles} from './style.js';
+import {saveProjectToStorage} from "../../storage.js";
 
 function centerViewOnPoints(state, dom) {
     if (!state.points.length) {
@@ -24,6 +26,7 @@ function centerViewOnPoints(state, dom) {
 }
 
 export function renderParkurCanvasDraw(config = {}) {
+    injectStyles();
     const state = createParkurState(config);
     const dom = renderParkurDOM(state);
 
@@ -35,7 +38,7 @@ export function renderParkurCanvasDraw(config = {}) {
     setupToolbarEvents(state, dom, updateCanvas, {
         onSave: () => {
             if (!state.points || state.points.length < 3 || state.drawing) {
-                alert("Zamknij kształt (min 3 punkty)!");
+                alert(t('alert.closeShape'));
                 return;
             }
             const edges = [];
@@ -69,11 +72,11 @@ export function renderParkurCanvasDraw(config = {}) {
                 }
             };
             saveProjectToStorage(project);
-            alert("Parkur został zapisany! Możesz go otworzyć z historii.");
+            alert(t('alert.saved'));
         },
         onExport: () => {
             if (!state.points || state.points.length < 3 || state.drawing) {
-                alert("Zamknij kształt!");
+                alert(t('alert.closeShapeExport'));
                 return;
             }
             const edges = [];

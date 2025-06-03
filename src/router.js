@@ -1,3 +1,4 @@
+import { dispatch, actions } from './store.js';
 const stack = [];
 
 export function goTo(viewFn, params) {
@@ -14,7 +15,10 @@ export function goBack() {
 
 function renderTop() {
     const top = stack[stack.length - 1];
-    if (top) top.viewFn(top.params);
+    if (top) {
+        dispatch(actions.setView(top.viewFn.name));
+        top.viewFn(top.params);
+    }
 }
 
 export function startRouter(viewFn, params) {

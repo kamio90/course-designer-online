@@ -1,6 +1,6 @@
 import {getProjects, getProjectsGroupedByDate} from './storage.js';
-import {renderParkurCanvasDraw} from './components/ParkurCanvasDraw.js';
-import {renderParkurBuilder} from './components/ParkurBuilder.js';
+import { renderParkurCanvasDraw } from './components/ParkurCanvasDraw/index.js';
+import { renderParkurBuilder } from './components/ParkurBuilder/index.js';
 
 export function setupHistory() {
     const historyList = document.querySelector('.history-list');
